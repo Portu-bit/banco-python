@@ -23,3 +23,12 @@ class CuentaBancaria:
     def mostrar_saldo(self):
         print(f"El saldo actual de la cuenta de {self.titular} es: {self.saldo:.2f}")
         
+    def transferir(self, cantidad, cuenta_destino):
+        if cantidad <= 0:
+            raise ValueError("La cantidad a transferir debe ser positiva")
+        if cantidad > self.saldo:
+            raise SaldoInsuficienteError("Saldo insuficiente para realizar la transferencia")
+        self.retirar(cantidad)
+        cuenta_destino.depositar(cantidad)
+        print(f"Transferencia exitosa. Nuevo saldo: {self.saldo:.2f}")
+        
