@@ -1,6 +1,7 @@
-#crear cuenta bancaria
-from src.excepciones import SaldoInsuficienteError
 from src.cuenta import CuentaBancaria
+from src.excepciones import SaldoInsuficienteError
+
+
 def main():
     try:
         cuenta = CuentaBancaria("Juan Pérez", 1000)
@@ -8,12 +9,13 @@ def main():
         cuenta.depositar(500)
         cuenta.retirar(200)
         cuenta.mostrar_saldo()
-    except ValueError as ve:
-        print(f"Error: {ve}")
-    except SaldoInsuficienteError as sie:
-        print(f"Error de saldo insuficiente: {sie}")
-    except Exception as e:
-        print(f"Ocurrió un error inesperado: {e}")
+
+        cuenta_destino = CuentaBancaria("María López", 0)
+        cuenta.transferir(100, cuenta_destino)
+        cuenta_destino.mostrar_saldo()
+    except (ValueError, SaldoInsuficienteError) as exc:
+        print(f"Error: {exc}")
+
 
 if __name__ == "__main__":
     main()
